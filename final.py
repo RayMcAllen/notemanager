@@ -5,6 +5,7 @@ name = input('Введите ваше имя: ')
 otchestvo = input('Введите ваше очество: ')
 username = [family, name, otchestvo]
 print('Здравствуйте, ', + family + ' ' + name[:1] + '.' + otchestvo[:1] + '.')
+
 # заголовок заметки
 title = input('Введите основное название заметки: ')
 title1 = input('Введите доп. название заметки: ')
