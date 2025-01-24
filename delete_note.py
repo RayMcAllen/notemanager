@@ -12,31 +12,41 @@ for i, item in enumerate(data, start=1):
     print(f"   Заголовок: {item['Заголовок']}")
     print(f"   Описание: {item['Описание']}")
 
-# Ввод функции для удаления одной из существующих заметок
-def delete_data():
-    while data:
-        delete_tuple = input("Введите имя или название заголовка, котрый вы хотите удалить: ")
-        if delete_tuple.lower() == "алексей" or delete_tuple.lower() == "список покупок":
-            del data[0]
-            print("Заметка успешно удалена!")
-            break
-        if delete_tuple.lower() == "мария" or delete_tuple.lower() == "учеба":
-            del data[1]
-            print("Заметка успешно удалена!")
-            break
-        if delete_tuple.lower() == "петр" or delete_tuple.lower() == "первый":
-            del data[2]
-            print("Заметка успешно удалена!")
-            break
-        else:
-            print("Введено несуществующее имя или заголовок, повторите попытку!")
+while True:
+    # Запрос у пользователя
+    find_note = input("Введите имя или заголовок заметки, которую хотите удалить: ")
+    # Инициализируем индекс
+    index = 0
+    # Переменная для отслеживания найденного результата
+    found = False
+    # Используем цикл while для поиска словаря
+    while index < len(data):
+        if data[index]["Имя"].lower() == find_note.lower() or data[index]["Заголовок"].lower() == find_note.lower():
+            print(f"Удалено: {data[index]}")
+            found = True
+            del data[index]
+            break  # Выход из цикла, если нашли
+        index += 1
 
-# Вызов функции
-delete_data()
+    # Если не нашли имя
+    if not found:
+        print("Имя не найдено.")
 
-# Отображение результата
+    # Распечатываем заметки с нумерацией
+    print("Текущие заметки:")
+    for i, item in enumerate(data, start=1):
+        print(f"{i}. Имя: {item['Имя']}")
+        print(f"   Заголовок: {item['Заголовок']}")
+        print(f"   Описание: {item['Описание']}")
+
+    delete_another = input("Хотите удалить еще заметку? (да/нет): ")
+    if delete_another.lower() != 'да':
+        break
+
+
 print("Текущие заметки:")
 for i, item in enumerate(data, start=1):
     print(f"{i}. Имя: {item['Имя']}")
     print(f"   Заголовок: {item['Заголовок']}")
     print(f"   Описание: {item['Описание']}")
+
