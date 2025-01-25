@@ -1,5 +1,4 @@
 import datetime # импортируем библиотеку для работы с датами
-from idlelib.pyshell import restart_line
 
 data = []
 
