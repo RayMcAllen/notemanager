@@ -25,53 +25,63 @@ while True:
         unique_titles = list(set(content))
         # вывод строки для красоты
         print('Ваш список: ')
-        # вывод итогого списка столбиком
+        # вывод итогового списка столбиком
         print(', '.join(unique_titles))
 
     # CТАТУС ЗАМЕТКИ
-    print('Возможные статусы заметки:\n', '1. Выполнено', '\n', '2. В процессе', '\n', '3. Отложено') # подсказка для пользователя
-    status = input('Введите статус заметки (1,2 или 3): ')  # запрашиваем ввод от пользователя
-    for i in status:
-        if i == '1':
-            status = 'Выполнено'
-            print('Ваш выбор: 1.Выполнено')
+    print('Возможные статусы заметки:\n', '1. Выполнено', '\n', '2. В процессе', '\n',
+          '3. Отложено')  # подсказка для пользователя
+    status = input('Введите статус заметки (1,2 или 3): ')
+    while status:
+        if status == '1':
+            status = '1. Выполнено'
+            print('Ваш выбор: 1. Выполнено')
             break
-        elif i == '2':
-            status = 'В процессе'
-            print('Ваш выбор: 2.В процессе')
+        elif status == '2':
+            status = '2. В процессе'
+            print('Ваш выбор: 2. В процессе')
             break
-        elif i == '3':
-            status = 'Отложено'
-            print('Ваш выбор: 3.Отложено')
+        elif status == '3':
+            status = '3. Отложено'
+            print('Ваш выбор: 3. Отложено')
             break
-        elif i != ('1', '2', '3'):  # предотвращаем ошибки в случае некорректного ввода пользователем
+        else:  # предотвращаем ошибки в случае некорректного ввода пользователем
             print('Введено некорректное значение!')
 
     # ДЕДЛАЙН
-    date = datetime.datetime.today().strftime("%d.%m.%Y")
-    print("Сегодня: ", date)
+    print("Сегодня: ", datetime.datetime.now().strftime("%d.%m.%Y"))
     while True:
+        # Запрос даты у пользователя
         create_date = input('Введите дату завершения дедлайна в формате ДД.ММ.ГГГГ: ')
+
+        # проверка корректности ввода даты
         try:
             create_date = datetime.datetime.strptime(create_date, "%d.%m.%Y")
-        except:
+        except ValueError:
             print("Дата введена некорректно!")
             continue
+
+        # Вывод отформатированной даты
         print('Дата завершения дедлайна:\n', create_date.strftime("%d.%m.%Y"))
+
+        # Вычисление оставшегося времени
         remain = create_date - datetime.datetime.now()
-        if remain.days > 1:
-            print("Осталось ", remain.days, 'дней')
+
+        # Проверка оставшегося времени
+        if remain.days > 0:
+            print("Осталось", remain.days, 'дней')
             break
-        elif remain.days < -1:
-            print("Дедлайн завершился", -remain.days, "дней назад!")
+        elif remain.days < 0:
+            print("Дедлайн завершен", -remain.days, "дней назад")
             break
         else:
             print("Дедлайн сегодня")
             break
+
     note = {'Имя пользователя': name, 'Заголовок заметки': title,
             'Описание заметки': content, 'Статус заметки': status,
-            'Дата создания заметки': date, 'Дата истечения заметки': create_date.strftime("%d.%m.%Y")}
-    
+            'Дата создания заметки': datetime.datetime.now().strftime("%d.%m.%Y"), 'Дата истечения заметки': create_date.strftime("%d.%m.%Y")}
+
     data.append(note)
 
     for i, item in enumerate(data, start=1):
@@ -87,6 +97,6 @@ while True:
         if another_note == 'y':
             break
         elif another_note == 'n':
-            raise SystemExit
+            exit(0)
         else:
             print("Введено некорректное значение!")
