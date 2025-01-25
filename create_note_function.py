@@ -85,6 +85,7 @@ def create_note():
 
         data.append(note)
 
+        print("Заметка успешно добавлена!")
         for i, item in enumerate(data, start=1):
             print(f"{i}. Имя пользователя: {item['Имя пользователя']}")
             print(f"   Заголовок заметки: {item['Заголовок заметки']}")
