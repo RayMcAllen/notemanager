@@ -1,6 +1,5 @@
-import datetime  # импортируем библиотеку для работы с датами
 
-data = []
+notes = []
 
 def create_note():
     while True:
@@ -31,8 +30,8 @@ def create_note():
         # CТАТУС ЗАМЕТКИ
         print('Возможные статусы заметки:\n', '1. Выполнено', '\n', '2. В процессе', '\n',
               '3. Отложено')  # подсказка для пользователя
-        status = input('Введите статус заметки (1,2 или 3): ')
-        while status:
+        while True:
+            status = input('Введите статус заметки (1, 2 или 3): ')
             if status == '1':
                 status = '1. Выполнено'
                 print('Ваш выбор: 1. Выполнено')
@@ -45,14 +44,15 @@ def create_note():
                 status = '3. Отложено'
                 print('Ваш выбор: 3. Отложено')
                 break
-            else:  # предотвращаем ошибки в случае некорректного ввода пользователем
+            else:
                 print('Введено некорректное значение!')
 
         # ДЕДЛАЙН
+        import datetime  # импортируем библиотеку для работы с датами
         print("Сегодня: ", datetime.datetime.now().strftime("%d.%m.%Y"))
         while True:
             # Запрос даты у пользователя
-            create_date = input('Введите дату завершения дедлайна в формате ДД.ММ.ГГГГ: ')
+            create_date = input('Введите дату завершения дед лайна в формате ДД.ММ.ГГГГ: ')
 
             # проверка корректности ввода даты
             try:
@@ -62,7 +62,7 @@ def create_note():
                 continue
 
             # Вывод отформатированной даты
-            print('Дата завершения дедлайна:\n', create_date.strftime("%d.%m.%Y"))
+            print('Дата завершения дед лайна:\n', create_date.strftime("%d.%m.%Y"))
 
             # Вычисление оставшегося времени
             remain = create_date - datetime.datetime.now()
@@ -78,28 +78,28 @@ def create_note():
                 print("Дедлайн сегодня")
                 break
 
-        note = {'Имя пользователя': name, 'Заголовок заметки': title,
-                'Описание заметки': content, 'Статус заметки': status,
-                'Дата создания заметки': datetime.datetime.now().strftime("%d.%m.%Y"),
-                'Дата истечения заметки': create_date.strftime("%d.%m.%Y")}
+        note = {'username': name, 'title': title,
+                'content': content, 'status': status,
+                'created_date': datetime.datetime.now().strftime("%d.%m.%Y"),
+                'issue_date': create_date.strftime("%d.%m.%Y")}
 
-        data.append(note)
+        notes.append(note)
 
         print("Заметка успешно добавлена!")
-        for i, item in enumerate(data, start=1):
-            print(f"{i}. Имя пользователя: {item['Имя пользователя']}")
-            print(f"   Заголовок заметки: {item['Заголовок заметки']}")
-            print(f"   Описание заметки: {item['Описание заметки']}")
-            print(f"   Статус заметки: {item['Статус заметки']}")
-            print(f"   Дата создания заметки: {item['Дата создания заметки']}")
-            print(f"   Дата истечения заметки: {item['Дата истечения заметки']}")
+        for i, item in enumerate(notes, start=1):
+            print(f"{i}. Имя пользователя: {item['username']}")
+            print(f"   Заголовок заметки: {item['title']}")
+            print(f"   Описание заметки: {item['content']}")
+            print(f"   Статус заметки: {item['status']}")
+            print(f"   Дата создания заметки: {item['created_date']}")
+            print(f"   Дата истечения заметки: {item['issue_date']}")
 
-        another_note = input('Желатете добавить еще заметку? (y/n): ')
+        another_note = input('Желаете добавить еще заметку? (y/n): ')
         while another_note:
             if another_note == 'y':
                 break
             elif another_note == 'n':
-                exit(0)
+                exit()
             else:
                 print("Введено некорректное значение!")
 
