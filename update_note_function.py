@@ -12,7 +12,7 @@ def is_valid_date(date_str):
 def update_note(note):
     print("Текущие данные заметки:", note)
     # Вводим ключи заметки
-    keys = ['Имя', 'Заголовок', 'Описание', 'Статус', 'Дата истечения']
+    keys = ['username', 'title', 'content', 'status', 'issue_date']
 
     while True:
         # Запрос выбора ключа для обновления
@@ -22,9 +22,8 @@ def update_note(note):
             print("Некорректное имя поля. Пожалуйста, выберите одно из следующих: ", ', '.join(keys))
             continue
 
- 
         # Запрос нового значения
-        if key == 'Дата истечения':
+        if key == 'issue_date':
             while True:
                 new_value = input(f"Введите новое значение для {key} (формат: ДД.ММ.ГГГГ): ")
                 if is_valid_date(new_value):
@@ -46,12 +45,12 @@ def update_note(note):
 if __name__ == "__main__":
     # Пример заметки
     note_example = {
-        'Имя': 'Алексей',
-        'Заголовок': 'Список покупок',
-        'Описание': 'Купить продукты на неделю',
-        'Статус': 'Новая',
-        'Дата создания': '27.11.2024',
-        'Дата истечения': '30.11.2024'
+        'username': 'Алексей',
+        'title': 'Список покупок',
+        'content': 'Купить продукты на неделю',
+        'status': 'Новая',
+        'created_date': '27.11.2024',
+        'issue_date': '30.11.2024'
     }
 
     updated_note = update_note(note_example)
